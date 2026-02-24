@@ -27,7 +27,9 @@ Setup and Data Observation
 ```{r setup, echo=TRUE, results='hide', message=FALSE, warning=FALSE}
 library(tidyverse)
 library(dplyr)
-ohie <- read.csv("~/RStudio Stuff/EC325/EC325 Problem Sets/EC325 Problem Set 1/Ohie_sample.csv")
+
+# ohie <- read.csv("~/RStudio Stuff/EC325/EC325 Problem Sets/EC325 Problem Set 1/Ohie_sample.csv") # Mac
+ohie<- read_csv("~/EC325 Windows Git/data/ohie/ohie_sample.csv") # Windows
 ```
 `ohie` has 23777 observations of 11 variables.
 
