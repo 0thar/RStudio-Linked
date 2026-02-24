@@ -10,14 +10,14 @@ output:
 ## Question 1: The Oregon Health Insurance Experiment
 
 #### Part A
-
+Finkelstein et al. describe previous similar studies as having been hampered by the unobserved differences that exist in the insured and uninsured population. This study randomized participants to control for these differences, allowing them to determine the true causal effect of health insurance on a population.
 
 
 #### Part B
-
+In 2008, Oregon had a waiting list for low-income adults to join its Medicaid program. They decided to determine who would be allowed into the program by the use of a lottery system. "Winning" the lottery meant the winner would be given the opportunity to apply for Medicaid, not that they would automatically be placed on Medicaid. First, an individual would be selected by the lottery, then they would  have to apply for Medicaid. Not all winners would end up actually obtain coverage through Medicaid.
 
 #### Part C
-
+First, Medicaid is less attractive to doctors and hospitals because they pay less. As a result, not all hospitals and doctors accept Medicaid, decreasing the effectiveness of it when compared to private insurance. Second, they mention the effect of Medicaid may not be as strong in places with robust public health clinic systems that provide their services for very low or no cost. 
 
 
 ## Question 2: Loading and Exploring the Data
@@ -100,8 +100,20 @@ We could run a difference in means test to determine if this difference is stati
 
 #### Part A
 
+$Y_{1i}$ is the outcome for $i$ if treated and $Y_{0i}$ is the outcome for $i$ if not treated.
+The fundamental problem of causal inference is that we can only observe one or the other, so the true effect cannot be entirely determined. You can never see both the treatment and control results on one person/observation.
+
+#### Part B
+
+The difference in means can be decomposed into two parts. The causal effect term which represents the true impact of having Medicaid on the participants who enrolled and the selection bias term which represents differences that existed without Medicaid. People who enrolled in Medicaid may have seen a greater need for it, whether due to worse health, more tenuous financial situations or other reasons. This causes a confounding effect in the results of the experiment due to the fundamental problem of causal inference.
+
+#### Part C
+
+The Oregon lottery solves the selection bias problem by randomizing the members of the population who get access to Medicaid enrollment. This helps to solve the selection bias problem by randomly assigning people into the treatment group, regardless of personal motivation or other potentially confounding characteristics. The Law of Large Numbers is relevant here because it means as the number of participants increase, the average characteristics of lottery winners and losers shrinks.
 
 
+#### Part D
+I would not expect the treatment and control groups to be balanced. Selection into the groups would no longer be randomized with many potential selection bias effects present. People in worse health have a stronger incentive to enroll immediately, individuals who are not well-informed or who have less free time would likely hear about the program later. First-come, first-served would add in a very meaningful selection bias effect.
 
 
 ## Question 5: Checking Balance
@@ -173,6 +185,12 @@ The differences are exactly the same. The linear model gives the exact same resu
 Based on these results, it appears that winning the Oregon health insurance lottery causes increases in self-reported health. Participants that won the lottery experienced an increase in self-reported good health of $\approx10\%$. That is a large increase in practical terms. With something as complex and multifaceted as personal health, an increase of 10% is an impressive result.
 
 ## Question 7: Reflection
-Start of reflection
 
+#### Part A
+The effects of winning the lottery versus having Medicaid may be different between these two groups because not all who won the lottery end up with Medicaid. Some non-winners may still end up with insurance through their employer or programs such as Medicare. Also, the lottery only gives winners access to the application for Medicaid which does not give them access to healthcare directly, even if they win. Some Medicaid enrollees may still have limited access to hospitals which would mute its effect.
 
+#### Part B
+Some outcomes from this study worth considering are the long term effects of the study. The study only tracks participants for around a year, which is not long enough to see how chronic conditions improve and other potential diseases are caught or treated early, which would improve health outcomes. This program also decreases healthcare inequality and could potentially help treat some disability causing chronic conditions over time which could be a massive benefit for the state due to decreased disability spending and increased labor force participation.
+
+#### Part C
+While it is possible these results could generalize to other populations or settings, there are many aspects of this study and population that might make this less likely. First, a new population could have a higher insurance rate or better access to care which would decrease the effect because baseline healthcare statistics are already high relative to their maximum. A location with lower rates of Medicaid acceptance would see a smaller positive effect. Also, if the program is implemented in states with more untreated conditions and lower healthcare utilization numbers, the effect could be larger.
