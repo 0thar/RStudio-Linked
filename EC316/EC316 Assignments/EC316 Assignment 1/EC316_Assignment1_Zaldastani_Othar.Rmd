@@ -14,7 +14,7 @@ header-includes:
 - \usepackage{float}
 ---
 
-# Upload edit
+
 Setup Chunk
 ```{r setup, echo=TRUE, results='hide', message=FALSE, warning=FALSE}
 knitr::opts_chunk$set(fig.pos = "H", message = FALSE, warning = FALSE)
@@ -22,7 +22,7 @@ library(dplyr)
 library(readr)
 library(tidyverse)
 knitr::opts_chunk$set(fig.pos = "H")
-sweden <- read.csv("~/Downloads/Sweden_data.csv")
+sweden <- read_csv("sweden_merged.csv")
 
 # I can do this for future assignments if needed, but I got it to work my own way if that's alright.
 # setwd(dirname(rstudioapi::getActiveDocumentContext()$path)) 
@@ -141,3 +141,5 @@ for (yr in years) {
 1918 was the first year of the Influenza pandemic, also known as the Spanish flu. It killed people of all demographics, but had a particularly strong impact on young adults. While other countries were devastated by World War I, Sweden remained neutral, giving us a good baseline to look at in the years preceding and following the Great War. Populations are always vulnerable to epidemic disease, with the characteristics of some countries making them more or less susceptible to outbreaks than others. The life expectancy decreased by nine years during the pandemic, temporarily undoing decades of progress. Epidemics, specifically viral ones are still a massive threat to societies today. A virus has the capability to mutate and multiply faster than we can track and treat it, as proven by the COVID-19 Pandemic of 2020. Populations will likely remain vulnerable to pandemics going forward, at least until we develop much more advanced technology with the capability to quickly neutralize outbreaks.
 
 ## Question 8
+
+By describing the majority of life expectancy estimates as period measures, Deaton notes that the life expectancy numbers are more meaningful for taking a snapshot of a population at a moment in time. If an individual is younger, as society changes, they may have a much different life expectancy than could be estimated at the time. One effective tool when looking backwards is the lifespan data for all individuals born in a specific year. For example, life expectancy in Russia in 1940 was 41.4 years, but by 1945, 80% of males born in 1923 were dead and Russian life expectancy was just 23.6 years [Statista, BBC]. Life expectancy is not a gauge of how long people born today, but rather a projection of the current risks and typical lifespans of all people alive at a certain point.
