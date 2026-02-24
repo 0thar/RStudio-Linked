@@ -7,7 +7,6 @@ output:
   html_document:
     df_print: paged
 ---
-Windows edit
 ## Question 1: The Oregon Health Insurance Experiment
 
 #### Part A
