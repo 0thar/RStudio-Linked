@@ -1,0 +1,179 @@
+---
+title: "EC325 Problem Set 1"
+author: "Othar Zaldastani II"
+date: "February 27, 2026"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+## Question 1: The Oregon Health Insurance Experiment
+
+#### Part A
+
+
+
+#### Part B
+
+
+#### Part C
+
+
+
+## Question 2: Loading and Exploring the Data
+
+#### Part A
+Setup and Data Observation
+```{r setup, echo=TRUE, results='hide', message=FALSE, warning=FALSE}
+library(tidyverse)
+library(dplyr)
+ohie <- read.csv("~/RStudio Stuff/EC325/EC325 Problem Sets/EC325 Problem Set 1/Ohie_sample.csv")
+```
+`ohie` has 23777 observations of 11 variables.
+
+#### Part B
+`ohie` Data Representation
+```{r}
+head(ohie)
+```
+
+Each row in `ohie` represents an observation of a unique participant in the study.
+
+#### Part C
+Glimpse of the Data
+```{r}
+glimpse(ohie)
+```
+R assigned the character data type to the `educ` variable and a numeric variable for `treatment`.
+
+#### Part D
+Summary of `ohie`
+```{r, out.width="60%"}
+summary(ohie)
+```
+i) The variables with the missing values are `hhinc`, `goodhealth`, `any_doc`, `hisp`, `any_hosp`, and `female`.\\
+ii) `hhinc` has the most missing values with 1284.\\
+iii) The range of household incomes seems low. \$1000 is a very low annual household income for anyone in the United States, and a maximum income of \$22,000 seems low, even for people on Medicaid. The number that is most surprising to me is the median income of \$6,000 which implies many of the people on Medicaid work part time jobs with not many hours.
+
+## Question 3: Descriptive Statistics
+
+#### Part A
+Data Means
+```{r}
+vars <- c("female", "any_doc", "any_hosp", "good_health")
+for (var in vars) {
+    cat(var, ":", round(mean(ohie[[var]], na.rm = TRUE), 2), "\n")
+  }
+```
+`female` = 0.59 means 59% of  participants are Female.\\
+`any_doc` = 0.6 means 60% of participants reported a visit to the doctor in the previous six months.\\
+`any_hosp` = 0.07 means 7% of participants reported being hospitalized in the previous six months.\\
+`good_health` = 0.57 means 57% of participants reporting being in good health.
+
+#### Part B
+Count of `educ`
+```{r}
+count(ohie, educ)
+```
+The most common education level present in the sample is a high school degree, making up nearly half of all observations in the sample. Given that education has a positive correlation with income, the distribution seems reasonable. 41% of participants do not have a high school degree and only 11% have a college degree.
+
+#### Part C
+Creation of a College Binary Variable
+```{r}
+ohie <- ohie |>
+  mutate(college = ifelse(educ == "colldeg", 1, 0))
+
+mean(ohie$college, na.rm = TRUE)
+```
+$\approx 11.3\%$ of participants received a college degree.
+
+#### Part D
+```{r}
+ohie |>
+  group_by(female) |>
+  summarize(mean_good_health = mean(good_health, na.rm = TRUE))
+```
+There is a slight difference, with females reporting being in good health at a rate 1% higher than males. This could be due to males working in more physical jobs or possibly being on disability due to an injury sustained during their job.
+We could run a difference in means test to determine if this difference is statistically significant.
+
+## Question 4: Selection Bias and Causal Inference
+
+#### Part A
+
+
+
+
+
+## Question 5: Checking Balance
+
+Female
+```{r}
+# Code is the same format for all tables, with only one variable changed
+ohie |>
+  group_by(treatment) |>
+  summarize(mean_female = mean(female, na.rm = TRUE))
+```
+Hispanic
+```{r echo=FALSE}
+ohie |> group_by(treatment) |> summarize(mean_hisp = mean(hisp, na.rm = TRUE))
+```
+
+Household Income
+```{r echo=FALSE}
+ohie |>
+  group_by(treatment) |>
+  summarize(mean_household_income = mean(hhinc, na.rm = TRUE))
+```
+
+College Degree
+```{r echo=FALSE}
+ohie |>
+  group_by(treatment) |>
+  summarize(mean_college = mean(college, na.rm = TRUE))
+```
+
+#### Part B
+The means are relatively similar across the treatment and control groups. The average difference in means is approximately 4%. This is an indication of successful randomization.
+
+#### Part C
+If the observable characteristics are effectively randomized, it likely means that all variables are randomized, regardless of their observability. The more people in a randomized trial, the more likely the trial is to be truly and effectively randomized because random differences between people cancels out more the larger the size of the pool.
+
+
+## Question 6: Estimating the Causal Effect of the Lottery
+
+#### Part A
+
+```{r}
+means_table <- ohie |>
+  group_by(treatment) |>
+  summarize(
+    ever_medi   = mean(ever_medi,   na.rm = TRUE),
+    any_doc     = mean(any_doc,     na.rm = TRUE),
+    any_hosp    = mean(any_hosp,    na.rm = TRUE),
+    good_health = mean(good_health, na.rm = TRUE)
+  )
+
+round(means_table, 4)
+```
+#### Part B
+All outcomes show increases with treatment, with `any_hosp` showing an increase of 2.5%, `good_health` and `any_doc` both showing approximately 10% increases, and `ever_medi` showing an increase of nearly 300%.
+The direction of all changes make sense. I would expect Medicare enrollment to slightly increase the number of people who go to a hospital (potentially swaying people on the fence due to financial constraints), the number of people in good health as they now have improved access to healthcare, the number of people who visit a doctor for the same reason as hospitalization, and of course, the number of people who have ever enrolled in Medicaid, as insurance coverage was a primary focal point of the study.
+The outcome that shows the largest treatment effect is `ever_medi`, which is the variable showing whether a participant enrolled in Medicaid during the course of the study.
+
+#### Part C
+```{r}
+summary(lm(good_health ~ treatment, data = ohie))
+```
+The intercept is 0.543 and the slope coefficient for `treatment` is 0.054. The intercept represents the model's expected percentage of people in good health without winning the lottery, and the slope coefficient represents the percentage increase in good health of people in the population that won the lottery. It can also be thought of as the probability increase a person will be in good health depending on their lottery status.
+
+#### Part D
+The differences are exactly the same. The linear model gives the exact same result as the difference in means because for a linear model with a binary (dummy) variable, the regression line is the line between the two group means. Since the variable has no possible middle values, there is no way for the linear model to be different from a difference in means test.
+
+#### Part E
+Based on these results, it appears that winning the Oregon health insurance lottery causes increases in self-reported health. Participants that won the lottery experienced an increase in self-reported good health of $\approx10\%$. That is a large increase in practical terms. With something as complex and multifaceted as personal health, an increase of 10% is an impressive result.
+
+## Question 7: Reflection
+Start of reflection
+
+
