@@ -19,10 +19,40 @@ header-includes:
 knitr::opts_chunk$set(fig.pos = "H", message = FALSE, warning = FALSE)
 library(tidyverse)
 library(dplyr)
+library(datasets)
 ```
 
 ## Question 1
 
+```{r}
+vector.raw = rnorm(1000,mean = 0, sd = 1)
+
+vector.clean = vector.raw[!(vector.raw >= 0 & vector.raw <= 1.5)]
+hist(vector.clean)
+```
 
 
 
+## Question 2
+```{r}
+vector.1_100 = abs(abs(-99:99)-100)
+vector.1_100
+```
+
+
+## Question 3
+
+
+```{r}
+us_sorted = USArrests[order(USArrests$Murder, decreasing = TRUE),]
+View(us_sorted)
+```
+
+## Question 4
+
+```{r}
+USArrests$Urban.Cat = cut(USArrests$UrbanPop,3, labels = c("Low", "Med", "High"))
+```
+
+
+## Question 5
