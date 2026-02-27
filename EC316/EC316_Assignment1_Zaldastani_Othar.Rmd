@@ -1,0 +1,143 @@
+---
+title: "EC316 Assignment 1"
+author: "Othar Zaldastani II"
+date: "February 27, 2026"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+  word_document: default
+header-includes:
+- \makeatletter
+- \renewcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+- \makeatother
+- \usepackage{float}
+---
+
+# Upload edit
+Setup Chunk
+```{r setup, echo=TRUE, results='hide', message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(fig.pos = "H", message = FALSE, warning = FALSE)
+library(dplyr)
+library(readr)
+library(tidyverse)
+knitr::opts_chunk$set(fig.pos = "H")
+sweden <- read.csv("~/Downloads/Sweden_data.csv")
+
+# I can do this for future assignments if needed, but I got it to work my own way if that's alright.
+# setwd(dirname(rstudioapi::getActiveDocumentContext()$path)) 
+```
+# Section 1
+## Question 1
+Data Confirmation
+```{r Data Confirmation}
+head(sweden)
+```
+
+
+## Question 2
+Cleaning Data
+```{r Data Cleaning}
+sweden = filter(sweden, age != "110+")
+sweden = sweden |>
+  filter(total_pop > 0)
+```
+
+\pagebreak
+## Question 3
+Life expectancy in 1751
+
+#### Part A
+Mutating Data
+```{r, echo = T, results = 'hide', message=F}
+sweden.1751 = filter(sweden, year == 1751)
+sweden.1751 = mutate(sweden.1751,
+       mx = total_deaths/total_pop,
+       px = (1 - mx),
+       px_lagged = lag(px, default = 1),
+       lx = cumprod(px_lagged)
+       )
+```
+
+#### Part B
+Sum of life expectancy
+```{r, echo = T, results = 'hide', message=F}
+sum(sweden.1751$lx)
+```
+The sum of `lx` is 37.2, meaning life expectancy for people in Sweden in 1751 was 37.2 years.
+
+
+## Question 4
+Life expectancy across 4 years.
+
+```{r}
+# Adding in some of my own years to compare
+years <- c(1751, 1850, 1918, 2020)
+for (yr in years) {
+    sweden.year <- sweden |>
+        filter(year == yr) |>
+        mutate(
+            mx = (total_deaths/total_pop),
+            px = (1 - mx),
+            px_lagged = lag(px, default = 1),
+            lx = cumprod(px_lagged))
+    cat(yr, ":", round(sum(sweden.year$lx, na.rm = TRUE), 2), "\n")}
+```
+The increase in life expectancy seems relatively constant between the first three years measured, but there is a significant increase between 1918 and 2020. This is likely due to modern medicine such as antibiotics and greatly decreased infant mortality which massively reduced life expectancy.
+
+\pagebreak
+
+## Question 5
+```{r}
+years <- c(1918)
+for (yr in years) {
+    sweden.year <- sweden |>
+        filter(year == yr) |>
+        mutate(
+            mx = (male_deaths/male_pop),
+            px = (1 - mx),
+            px_lagged = lag(px, default = 1),
+            lx = cumprod(px_lagged))
+    cat(yr, ":", round(sum(sweden.year$lx, na.rm = TRUE), 2), "\n")}
+```
+
+```{r}
+years <- c(1918)
+for (yr in years) {
+    sweden.year <- sweden |>
+        filter(year == yr) |>
+        mutate(
+            mx = (female_deaths/female_pop),
+            px = (1 - mx),
+            px_lagged = lag(px, default = 1),
+            lx = cumprod(px_lagged))
+    cat(yr, ":", round(sum(sweden.year$lx, na.rm = TRUE), 2), "\n")}
+```
+In 1918, there was a life expectancy gender gap of approximately 3.3 years favoring women. This may be due to males working in more dangerous occupations such as manufacturing, mining, and other jobs requiring physical labor with suboptimal working conditions.
+
+\pagebreak
+
+# Section 2
+
+## Question 6
+The pattern of life expectancy in the data shows a modest, constant increase for the first three years measured, with a massive jump in the final 100 year segment. Infectious disease often kills the very young and the very old. If a population's youngest are dying at a high rate, it will decrease the life expectancy by a large amount because of the amount of leverage they have on affecting the average life expectancy relative to one with healthier young. Some medical advances were the cause of the increased life expectancy in the first 200 or so years of the data set, but the near eradication of infectious disease death in developed countries such as Sweden meant that its population lives long enough to suffer from chronic disease, which we are not yet as good at treating, as opposed to infectious disease. The major gains in healthcare, and thus lifespan, were in the 20th century with the advent of greatly improved medical techniques and the introduction of treatments such as antibiotics and even NSAIDs.
+
+
+## Question 7
+```{r}
+# Adding in some of my own years to compare
+years <- c(1917, 1918, 1920, 2020, 2021, 2024)
+for (yr in years) {
+    sweden.year <- sweden |>
+        filter(year == yr) |>
+        mutate(
+            mx = (total_deaths/total_pop),
+            px = (1 - mx),
+            px_lagged = lag(px, default = 1),
+            lx = cumprod(px_lagged))
+    cat(yr, ":", round(sum(sweden.year$lx, na.rm = TRUE), 2), "\n")}
+```
+
+1918 was the first year of the Influenza pandemic, also known as the Spanish flu. It killed people of all demographics, but had a particularly strong impact on young adults. While other countries were devastated by World War I, Sweden remained neutral, giving us a good baseline to look at in the years preceding and following the Great War. Populations are always vulnerable to epidemic disease, with the characteristics of some countries making them more or less susceptible to outbreaks than others. The life expectancy decreased by nine years during the pandemic, temporarily undoing decades of progress. Epidemics, specifically viral ones are still a massive threat to societies today. A virus has the capability to mutate and multiply faster than we can track and treat it, as proven by the COVID-19 Pandemic of 2020. Populations will likely remain vulnerable to pandemics going forward, at least until we develop much more advanced technology with the capability to quickly neutralize outbreaks.
+
+## Question 8

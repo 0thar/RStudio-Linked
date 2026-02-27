@@ -1,0 +1,28 @@
+---
+title: "SC306 Homework 3: R Intro Part 2"
+author: "Othar Zaldastani II"
+date: "February 27, 2026"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+  word_document: default
+header-includes:
+- \usepackage{xcolor}
+- \makeatletter
+- \providecommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{1}}
+- \makeatother
+- \usepackage{float}
+---
+
+```{r setup, echo=TRUE, results='hide', message=FALSE, warning=FALSE, include = F}
+knitr::opts_chunk$set(fig.pos = "H", message = FALSE, warning = FALSE)
+library(tidyverse)
+library(dplyr)
+```
+
+## Question 1
+
+
+
+
