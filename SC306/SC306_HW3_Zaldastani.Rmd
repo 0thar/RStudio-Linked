@@ -13,6 +13,8 @@ header-includes:
 - \providecommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{1}}
 - \makeatother
 - \usepackage{float}
+- \usepackage{etoolbox}
+- \AtBeginEnvironment{verbatim}{\footnotesize}
 ---
 
 ```{r setup, echo=TRUE, results='hide', message=FALSE, warning=FALSE, include = F}
@@ -20,17 +22,17 @@ knitr::opts_chunk$set(fig.pos = "H", message = FALSE, warning = FALSE)
 library(tidyverse)
 library(dplyr)
 library(datasets)
+library(knitr)
+library(kableExtra)
 ```
 
 ## Question 1
 
-```{r}
+```{r, out.width='0.65\\linewidth', fig.align='center'}
 vector.raw = rnorm(1000,mean = 0, sd = 1)
-
 vector.clean = vector.raw[!(vector.raw >= 0 & vector.raw <= 1.5)]
 hist(vector.clean)
 ```
-
 
 
 ## Question 2
@@ -39,20 +41,153 @@ vector.1_100 = abs(abs(-99:99)-100)
 vector.1_100
 ```
 
-
+\pagebreak
 ## Question 3
 
 
-```{r}
-us_sorted = USArrests[order(USArrests$Murder, decreasing = TRUE),]
-View(us_sorted)
-```
+```{r, results='markup'}
+library(knitr)
 
+us_sorted <- USArrests[order(USArrests$Murder, decreasing = TRUE), ]
+
+us_sorted
+```
+\pagebreak
 ## Question 4
 
 ```{r}
 USArrests$Urban.Cat = cut(USArrests$UrbanPop,3, labels = c("Low", "Med", "High"))
+USArrests
+```
+
+\pagebreak
+## Question 5
+
+```{r, out.width = "80%"}
+boxplot(Murder ~ Urban.Cat, data = USArrests)
+```
+
+Percent urban, as defined by the three categories in `Urban.Cat` does not appear to have a meaningful association with the murder rate in any given city.
+
+```{r}
+cor(USArrests$UrbanPop, USArrests$Murder)
+summary(lm(Murder ~ UrbanPop, data = USArrests))
+```
+
+These data show the "urbanness" of a city is effectively unrelated to its murder rate.
+
+\pagebreak
+## Question 6
+
+```{r}
+hersdata <- read.csv("C:/Users/Othar Zaldastani/Downloads/hersdata.csv")
+head(hersdata)
+names(hersdata)
+```
+
+\pagebreak
+```{r, out.width = "60%"}
+boxplot(BMI ~ nonwhite, data = hersdata, xlab = "Race", names = c("White", "Non-White"))
+```
+
+```{r, out.width = "70%"}
+par(mfrow = c(1,2))
+hist(hersdata$BMI[hersdata$nonwhite == "yes"], main = "Histogram of Non-White BMI", xlab = "BMI")
+hist(hersdata$BMI[hersdata$nonwhite == "no"], main = "Histogram of White BMI", xlab = "BMI")
+```
+
+```{r echo=FALSE}
+par(mfrow = c(1,1))
 ```
 
 
-## Question 5
+```{r}
+hersdata$LnBMI = log(hersdata$BMI)
+t.test(LnBMI ~ nonwhite, hersdata)
+```
+
+I ran a t-test with a null hypothesis of no BMI difference between `white` and `nonwhite` women and an alternative hypothesis of a difference in average BMI existing between the two groups.
+The test gave us a t-score of -5.02, for a p-value of <<0.01 in favor of rejecting the null hypothesis.
+The data show a clear association between BMI and `white`/`nonwhite` status.
+
+
+## Question 7
+
+```{r}
+# Confidence interval function
+ci.prop.conf = function(x,n,c) {
+  p_hat = x/n
+  se = sqrt(p_hat * (1-p_hat) / n)
+  
+  alpha = 1 - c
+  z = qnorm(1-alpha/2)
+  
+  lower = p_hat - z * se
+  upper = p_hat + z * se
+  return(list(
+    proportion = p_hat,
+    confidence.interval = c,
+    lower = lower,
+    upper = upper
+  ))}
+ci.prop.conf(46, 200, .95)
+```
+
+$\hat p = 0.23$, and the 95% confidence interval is $[0.192 : 0.268]$.
+
+\pagebreak
+
+## Question 8
+
+#### Part A
+Completed Table
+```{r echo=FALSE}
+latex_table <- data.frame(
+  Occupation = c("Health Care Workers",
+                 "Non-Health Care Workers",
+                 "Painters",
+                 "Hairdressers",
+                 "Food Handlers",
+                 "Cleaners"),
+  Allergy = c(13, 25, 2, 3, 7, 3),
+  Total = c(58, 1093, 32, 59, 41, 78)
+)
+
+latex_table$Frequency_per_1000 <- round((latex_table$Allergy / latex_table$Total) * 1000, 1)
+
+kable(latex_table,
+      col.names = c("Occupation",
+                    "# With Latex Allergy",
+                    "Total # in Group",
+                    "Frequency per 1,000 people"),
+      format = "latex",
+      booktabs = TRUE,
+      align = "lccc") |>
+  kable_styling(latex_options = "HOLD_position")
+```
+
+#### Part B
+The name of the measurement of disease calculated above is prevalence.\newline
+Here it is represented as $\frac {\text{Number with Latex Allergy} }{\text{Total in Group}}\times 1000$.
+
+
+#### Part C
+To determine cumulative incidence, the previous positive results are excluded from the at-risk population. Baseline positives number 164 and the at-risk population is then $2030 - 164 = 1866$. The total number of new cases is 47, making the cumulative incidence $\frac{47}{1866} = 0.0252$. 
+
+
+#### Part D
+
+Person time can be calculated by taking the sum of the products of participants and the number of monthly visits they completed.
+$(1532 \cdot 24) +  (17 \cdot 22) +  (19 \cdot 19) +  (41 \cdot 16) +  (232 \cdot 12) +  (25 \cdot )7 =  41,118$ person months, or 3426.5 person-
+
+
+#### Part E
+Incidence density is the number of new cases divided by the person-time.
+
+With 47 new cases and 41,118 person-months, the incidence density is equal to $\frac{47}{41118} \times 1000\approx 1.14$ cases per 1000 person-months.
+
+
+
+#### Part F
+
+This is an example of a proportion because it is calculated by dividing the number of cases by the number of workers. It could also be described as point prevalence because it describes the prevalence of workers with the Latex allergy at a specific point in time (the first week in June). No person-time means it's not incidence density, no follow-up eliminates incidence proportion, and it is not period prevalence because it is a measure at one point in time.
