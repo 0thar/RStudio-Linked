@@ -1,0 +1,135 @@
+---
+title: "EC325 Concept Check 4"
+output: pdf_document
+date: "March 1, 2026"
+author: Othar Zaldastani II
+header-includes:
+  - \makeatletter
+  - \renewcommand{\CommentTok}[1]{\textcolor[rgb]{0.8,0.1,0.1}{#1}}
+  - \makeatother
+---
+
+```{r message=FALSE, warning=FALSE}
+rm(list = ls())
+library(tidyverse)
+data(mtcars)
+```
+## Question 1
+#### A)
+Creating initial graph.
+```{r fig.height=3, fig.width=5}
+# First graph
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point() +
+  xlab("Weight (thousands of lbs)") +
+  ylab("Miles per Gallon") + 
+  ggtitle("Fuel Efficiency vs. Vehicle Weight") +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+\pagebreak
+
+#### B)
+Adding line of best fit.
+```{r fig.height=3, fig.width=5, message=FALSE, warning=FALSE}
+# Adding line of best fit
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  xlab("Weight (thousands of lbs)") +
+  ylab("Miles per Gallon") + 
+  ggtitle("Fuel Efficiency vs. Vehicle Weight") +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+#### C)
+Based on the scatter plot, I expect $\hat\beta_1$ to be negative because the line of best fit is downward sloping.
+
+
+## Question 2
+
+#### A)
+Mean weight in thousands of pounds $(\bar x)$ and mean mpg $(\bar y)$
+```{r}
+xbar = mean(mtcars$wt) # Storing average weight value
+ybar = mean(mtcars$mpg) # Storing average mpg value
+
+cat("Mean Weight:", xbar,
+    "\nMean MPG:", ybar)  
+```
+#### B)
+Computing $SST_x$
+
+```{r}
+SSTx = sum((mtcars$wt - xbar)^2) # Storing sum of squares for weight
+SSTx
+```
+$SST_x = 29.68$
+
+#### C)
+Computing numerator of slope formula
+```{r}
+numerator = sum((mtcars$wt - xbar) * (mtcars$mpg - ybar)) # Creation of numerator variable
+numerator
+```
+The numerator of the slope formula is 33,419.7.
+
+#### D)
+Computing OLS slope
+```{r}
+ols.slope = numerator / SSTx # Creation of slope variable
+ols.slope
+```
+The OLS slope is -5.34.
+
+#### E)
+Computing OLS intercept
+```{r}
+ols.inter = ybar - (ols.slope * xbar) # Calculating intercept
+ols.inter
+```
+The OLS intercept is 37.29.
+
+#### F)
+Estimated regression equation
+
+The estimated regression equation is $\widehat{mpg} = 37.29 -5.34(wt)$.
+
+#### G)
+Verification of results
+```{r}
+cov(mtcars$wt, mtcars$mpg) / var(mtcars$wt) # Verifying results
+```
+This formula gives us the exact same slope as the previous calculations.
+
+\pagebreak
+
+## Question 3
+
+#### A)
+Regression using `lm()`
+
+```{r}
+mpg.wt.model = lm(mpg ~ wt, data = mtcars) # Creation of regression model
+summary(mpg.wt.model) # Summary of regression model
+```
+#### B)
+The intercept and the slope exactly match what I computed by "hand" in Question 2.
+
+#### C)
+The slope coefficient represents the change the model expects to see in the response variable for each one unit change in the predictor variable. Here, the slope coefficient tells us to expect a decrease of 5 miles per gallon for every additional 1000 pounds a vehicle weighs.
+
+#### D)
+The intercept represents the expected value of the response variable when the predictor variable is equal to zero. It does not have much of a real-world use for us, other than telling us what the expected gas mileage of a 0 pound car would be. It could potentially have some use by giving us the upper bound on the range of possible `mpg` values.
+
+
+## Question 4
+
+#### A)
+The value of $R^2$ for the model is 0.753.
+
+#### B)
+An $R^2$ of 0.753 means 75.3% of the total variance in gas mileage between cars can be explained by differences in weight using the model.
+
+#### C)
+My classmate is making the common error of confusing correlation with causation. It is possible there could be another confounding factor causing the differences in gas mileage. Just because two values are correlated strongly with each other does not mean that one causes the other. While it is likely that increasing a car's weight has a negative effect on fuel economy, more testing is needed to determine if this is a causal relationship.
+
