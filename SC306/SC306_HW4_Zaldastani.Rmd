@@ -1,0 +1,56 @@
+---
+title: "SC306 Homework 4"
+author: "Othar Zaldastani II"
+date: "March 9, 2026"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+  word_document: default
+header-includes:
+- \usepackage{xcolor}
+- \makeatletter
+- \providecommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{1}}
+- \makeatother
+- \usepackage{float}
+- \usepackage{endnotes}
+---
+
+```{r setup, echo=TRUE, results='hide', message=FALSE, warning=FALSE, include = F}
+knitr::opts_chunk$set(fig.pos = "H", message = FALSE, warning = FALSE)
+library(tidyverse)
+library(dplyr)
+library(epitools)
+```
+
+## Question 1
+Creation of birth weight table
+```{r}
+bw = matrix(c(110, 1073, 289, 15896), nrow=2, byrow = TRUE)
+colnames(bw) = c('Low', 'Normal')
+rownames(bw) = c('Cocaine', 'No Cocaine')
+knitr::kable(bw)
+```
+#### A)
+The incidence measure we can calculate given the data is incidence proportion. $IP = \frac {\text{Total number of new cases during interval}} {\text{Total population at risk}}$.
+
+#### B)
+$IP_{Cocaine} = \frac{110}{110+289} = 0.276$
+
+#### C)
+$IP_{Non-Cocaine} = \frac{1073}{1073+15896} = 0.0063$
+
+#### D)
+The relative risk of low birth weight is $\frac{0.276}{0.063} = 4.38$.
+
+#### E)
+A relative risk of 4.38 means mothers who used Cocaine during pregnancy had 4.38 times the risk of having a baby with low birth weight compared to mothers who did not use Cocaine during pregnancy.
+
+#### F)
+Birth weight table
+```{r}
+riskratio(bw, rev = "b")
+```
+The risk ratio is 5.21 with a 95% CI of $[4.21 : 6.43]$. The interpretation for the 95% confidence interval is that given our analysis of the data, we are 95% confident that the true risk ratio is between 4.21 and 6.43. Cocaine use is significantly associated with low birth weight, as shown by the value lower bound of our confidence interval considerably exceeding 1.
+
+
