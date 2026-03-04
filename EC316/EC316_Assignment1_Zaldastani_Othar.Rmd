@@ -3,9 +3,9 @@ title: "EC316 Assignment 1"
 author: "Othar Zaldastani II"
 date: "February 27, 2026"
 output:
-  pdf_document: default
   html_document:
     df_print: paged
+  pdf_document: default
   word_document: default
 header-includes:
 - \makeatletter
