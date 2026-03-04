@@ -1,0 +1,134 @@
+---
+title: "SC306 Homework 2"
+author: "Othar Zaldastani II"
+date: "2026-02-20"
+output: pdf_document
+---
+
+## Question 1
+
+A)
+```{r}
+vector1 = c(0,3,6,9,12,15)
+vector1
+```
+
+B)
+It will give 2 to the power of each value in the exponent.
+```{r}
+2^vector1
+```
+
+C)
+It will square every value in the vector
+```{r}
+vector1*vector1
+```
+
+
+## Question 2
+
+A)
+```{r}
+set.seed(42)
+rand.vector = rnorm(1000, mean = 0, sd = 1)
+```
+
+B)
+```{r}
+c(mean = mean(rand.vector),
+sd = sd(rand.vector))
+```
+
+C)
+```{r}
+squared.vector = rand.vector^2
+```
+
+D)
+```{r}
+c(mean = mean(squared.vector),
+  sd   = sd(squared.vector))
+```
+
+E)
+```{r}
+hist(squared.vector)
+```
+
+F)
+```{r}
+hist(rchisq(1000,1))
+```
+
+
+
+## Question 3
+
+A)
+```{r}
+library(datasets)
+data(Nile)
+```
+
+B)
+```{r}
+help(Nile)
+```
+These data are a collection of measurements of annual water flow rate of the Nile at Aswan from 1871-1970. Unit of measure is $10^8m^3$.
+
+C)
+```{r}
+summary(Nile)
+```
+
+D)
+```{r}
+plot(Nile, main = "Yearly Nile Flow Rate at Aswan: 1871-1970", ylab = "Hundreds of millions of Cubic Meters", xlab = "Year")
+```
+
+## Question 4
+I will be exploring the `airmiles` data set.
+
+The data is a time series of 24 observations of the number of revenue passenger miles flown by commercial airlines in the United States from 1937 to 1960.
+Revenue passenger miles are the cumulative number of miles traveled by paying passengers on an airplane (15 paying passengers on a 500 mile flight = 7500 revenue passenger miles). It does not count employee commuting, non-revenue travel, and similar travel.
+```{r}
+plot(airmiles, log = "y", main = "Revenue Passenger Miles by Year: 1937-1960", ylab = "# of Revenue Passenger Miles (log scale)", xlab = "Year")
+```
+I chose to represent the data with a log scale Y-axis because air travel grew at such a rapid rate during this time period. The end of World War 2 allowed for increased civilian usage of assets previously reserved for the military, increasing wealth and decreasing costs allowed more people to travel, and the rapidly advancing aviation technology allowed for higher speeds and capacity on airliners.
+
+
+
+## Question 5
+
+A) There were 1,114,190 total deaths in the United States in 1989 with a population of 248,239,000. The crude mortality rate is then equal to $\frac {1,114,190}{248,239,000} = 0.00449$ or $\approx 0.45\%$
+
+B) Infant Mortality
+
+The male infant mortality rate in 1989 was $\frac{14,059 + 8,302}{2,069,490} = 0.0108$ or 10.8 deaths per 1000 male live births.
+
+The female infant mortality rate in 1989 was $\frac{11,109 + 6,185}{1,971,468} = 0.00877$ or 8.8 deaths per 1000 female live births.
+
+The combined infant mortality rate in 1989 was $\frac{14,059 + 8,302 + 14,059 + 8,302}{2,069,490 + 1,971,468} = 0.0981$ or 9.8 deaths per 1000 live births.
+
+C) 65+ Mortality Rate is calculated by dividing the number of deaths for people older than 65 by the number of people over age 65 in the population.
+Population 65+ is $1000\times(10,169 + 8,013 + 6,033 + 3,728 + 3,042) = 30,985,000)$.
+Deaths 65+ is $219,097 + 262,127 + 301,225 + 297,981 + 457,358 = 1,537,788$.
+The 65+ mortality rate, then is: $\frac {1,537,788}{30,985,000} = 0.0496$ or 49.6 deaths per 1000 for the 65+ population.
+
+D)
+22,082 people died from HIV in 1989. The population was 248,239,000 which means the HIV cause-specific death rate is $\frac {22,082}{248,239,000} = 0.00008895459618$, or a cause-specific death rate per 1000 of 0.089.
+
+E) To have a true incidence rate, among other things, the at-risk population which is different than the total population.
+A workaround could simply be to use the entire population instead of the at risk population, but this is less accurate and useful.
+The proportion of the population that was a new AIDS case in 1989 is $\frac{33,722}{248,239,000} = 0.000136$ or 13.6 cases oer 100,000 population.
+
+F) Proportionate heart disease mortality is equal to $\frac {\text{heart disease deaths}}{\text{total deaths}}\times 100$.
+$\frac{733,867}{2,150,466}\times 100$ = 0.3413 or 34.13%.
+
+## Question 6
+
+A) This is a good thing, it means people are living longer with treatment and as a result more people will continue to live with the disease instead of dying. It is similar to how increased usage of metal helmets caused an increase in shrapnel-related head injuries among British soldiers in World War 1. Injuries increased because most shrapnel hits resulted in the death of the soldier, but now many of those soldiers survived long enough to make it into injury statistics.
+
+B)
+This is misleading because if increased treatment effectiveness allows people to live longer then there will be more people with any given condition. One could greatly reduce the prevalence of a disease by simply killing everyone suffering from it. Increased testing and or earlier detection would also increase the statistical prevalence of a disease even if the true prevalence has not changed. Prevalence is a more useful statistic when disease duration is short, survival trends are relatively constant and the testing/surveillance methods are stable. Another method that could be used are mortality ratios, age/demographic-adjusted statistics, or disability adjusted life years lost (DALYs) which are all more reliable measures of the impact a disease has on a population.

@@ -1,0 +1,40 @@
+---
+title: 'SC306 Homework #2'
+author: "Othar Zaldastani II"
+date: "February 20, 2026"
+output: pdf_document
+---
+## Question 1
+Generate 1000 standard normal values and a histogram of values greater than or less than 1.5.
+```{r}
+thou.vals = rnorm(1000, mean=0, sd=1)
+vals_1.5 <- thou.vals[ abs(thou.vals) > 1.5 ]
+hist(vals_1.5, breaks = 15, main = "Histogram of Values Greater or Less Than 1.5", xlim = c(-4, 4))
+```
+
+## Question 2
+199 value vector.
+```{r}
+# I know there's a better way to do this, but not quite sure how to execute it properly.
+vector.1_100 = abs(abs((-99:99)) - 100)
+
+length(vector.1_100)
+```
+
+```{r}
+vector.1_100
+```
+
+## Question 3
+
+`USArrests` dataset analysis.
+```{r}
+library(datasets)
+
+sorted.arrests = order(USArrests$Murder, decreasing = T)
+
+View(sorted.arrests)
+```
+
+
+
