@@ -10,10 +10,10 @@ output:
 header-includes:
 - \usepackage{xcolor}
 - \makeatletter
-- \providecommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{1}}
 - \makeatother
 - \usepackage{float}
 - \usepackage{endnotes}
+- \renewcommand{\CommentTok}[1]{\textcolor[rgb]{0.60,0.20,0.20}{#1}}
 ---
 
 ```{r setup, echo=TRUE, results='hide', message=FALSE, warning=FALSE, include = F}
@@ -21,6 +21,7 @@ knitr::opts_chunk$set(fig.pos = "H", message = FALSE, warning = FALSE)
 library(tidyverse)
 library(dplyr)
 library(epitools)
+library(knitr)
 ```
 
 ## Question 1
@@ -32,7 +33,8 @@ rownames(bw) = c('Cocaine', 'No Cocaine')
 knitr::kable(bw)
 ```
 #### A)
-The incidence measure we can calculate given the data is incidence proportion. $IP = \frac {\text{Total number of new cases during interval}} {\text{Total population at risk}}$.
+The incidence measure we can calculate given the data is incidence proportion.
+$IP = \frac {\text{Total number of new cases during interval}} {\text{Total population at risk}}$.
 
 #### B)
 $IP_{Cocaine} = \frac{110}{110+289} = 0.276$
@@ -52,5 +54,35 @@ Birth weight table
 riskratio(bw, rev = "b")
 ```
 The risk ratio is 5.21 with a 95% CI of $[4.21 : 6.43]$. The interpretation for the 95% confidence interval is that given our analysis of the data, we are 95% confident that the true risk ratio is between 4.21 and 6.43. Cocaine use is significantly associated with low birth weight, as shown by the value lower bound of our confidence interval considerably exceeding 1.
+
+
+## Question 2
+```{r}
+IPR.conf = function(a, b, c, d, conf) {
+  ipr.hat = (a/(a+b)) / (c/(c+d))                 # Predicted IPR
+  alpha = 1 - conf
+  z = qnorm(1-alpha/2)
+  
+  var.ln.ipr = (b/(a*(a+b))) + (d/(c*(c+d)))      # Natural log of IPR variance
+  se = sqrt(var.ln.ipr)                           # Standard error
+  
+  ln.lower = log(ipr.hat) - z * sqrt(var.ln.ipr)  # Upper/Lower Log Bounds
+  ln.upper = log(ipr.hat) + z * sqrt(var.ln.ipr)
+  
+  lower = exp(ln.lower)                           # Upper/Lower Bounds
+  upper = exp(ln.upper)
+  
+  data.frame(
+    IPR = ipr.hat,
+    "Lower Bound" = lower,
+    "Upper Bound" = upper,
+    "Confidence Interval" = conf,
+    check.names = F
+  )}
+kable(IPR.conf(110, 1073, 289, 15896, .95), digits = 3)
+```
+The new interval is effectively identical to the interval from Problem 1.
+
+
 
 
