@@ -1,0 +1,351 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{xcolor}
+\makeatletter
+\makeatother
+\usepackage{float}
+\usepackage{endnotes}
+\renewcommand{\CommentTok}[1]{\textcolor[rgb]{0.60,0.20,0.20}{#1}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={SC306 Homework 4},
+  pdfauthor={Othar Zaldastani II},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{SC306 Homework 4}
+\author{Othar Zaldastani II}
+\date{March 9, 2026}
+
+\begin{document}
+\maketitle
+
+\subsection{Question 1}\label{question-1}
+
+Creation of birth weight table
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bw }\OtherTok{=} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{110}\NormalTok{, }\DecValTok{1073}\NormalTok{, }\DecValTok{289}\NormalTok{, }\DecValTok{15896}\NormalTok{), }\AttributeTok{nrow=}\DecValTok{2}\NormalTok{, }\AttributeTok{byrow =} \ConstantTok{TRUE}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(bw) }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}Low\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Normal\textquotesingle{}}\NormalTok{)}
+\FunctionTok{rownames}\NormalTok{(bw) }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}Cocaine\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}No Cocaine\textquotesingle{}}\NormalTok{)}
+\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(bw)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}lrr@{}}
+\toprule\noalign{}
+& Low & Normal \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Cocaine & 110 & 1073 \\
+No Cocaine & 289 & 15896 \\
+\end{longtable}
+
+\paragraph{A)}\label{a}
+
+The incidence measure we can calculate given the data is incidence
+proportion.
+\(IP = \frac {\text{Total number of new cases during interval}} {\text{Total population at risk}}\).
+
+\paragraph{B)}\label{b}
+
+\(IP_{Cocaine} = \frac{110}{110+289} = 0.276\)
+
+\paragraph{C)}\label{c}
+
+\(IP_{Non-Cocaine} = \frac{1073}{1073+15896} = 0.0063\)
+
+\paragraph{D)}\label{d}
+
+The relative risk of low birth weight is \(\frac{0.276}{0.063} = 4.38\).
+
+\paragraph{E)}\label{e}
+
+A relative risk of 4.38 means mothers who used Cocaine during pregnancy
+had 4.38 times the risk of having a baby with low birth weight compared
+to mothers who did not use Cocaine during pregnancy.
+
+\paragraph{F)}\label{f}
+
+Birth weight table
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{riskratio}\NormalTok{(bw, }\AttributeTok{rev =} \StringTok{"b"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $data
+##            Normal Low Total
+## No Cocaine  15896 289 16185
+## Cocaine      1073 110  1183
+## Total       16969 399 17368
+## 
+## $measure
+##                         NA
+## risk ratio with 95% C.I. estimate   lower    upper
+##               No Cocaine 1.000000      NA       NA
+##               Cocaine    5.207422 4.21475 6.433893
+## 
+## $p.value
+##             NA
+## two-sided    midp.exact fisher.exact   chi.square
+##   No Cocaine         NA           NA           NA
+##   Cocaine             0 1.500218e-38 3.033658e-62
+## 
+## $correction
+## [1] FALSE
+## 
+## attr(,"method")
+## [1] "Unconditional MLE & normal approximation (Wald) CI"
+\end{verbatim}
+
+The risk ratio is 5.21 with a 95\% CI of \([4.21 : 6.43]\). The
+interpretation for the 95\% confidence interval is that given our
+analysis of the data, we are 95\% confident that the true risk ratio is
+between 4.21 and 6.43. Cocaine use is significantly associated with low
+birth weight, as shown by the value lower bound of our confidence
+interval considerably exceeding 1.
+
+\subsection{Question 2}\label{question-2}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{IPR.conf }\OtherTok{=} \ControlFlowTok{function}\NormalTok{(a, b, c, d, conf) \{}
+\NormalTok{  ipr.hat }\OtherTok{=}\NormalTok{ (a}\SpecialCharTok{/}\NormalTok{(a}\SpecialCharTok{+}\NormalTok{b)) }\SpecialCharTok{/}\NormalTok{ (c}\SpecialCharTok{/}\NormalTok{(c}\SpecialCharTok{+}\NormalTok{d))                 }\CommentTok{\# Predicted IPR}
+\NormalTok{  alpha }\OtherTok{=} \DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ conf}
+\NormalTok{  z }\OtherTok{=} \FunctionTok{qnorm}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{alpha}\SpecialCharTok{/}\DecValTok{2}\NormalTok{)}
+  
+\NormalTok{  var.ln.ipr }\OtherTok{=}\NormalTok{ (b}\SpecialCharTok{/}\NormalTok{(a}\SpecialCharTok{*}\NormalTok{(a}\SpecialCharTok{+}\NormalTok{b))) }\SpecialCharTok{+}\NormalTok{ (d}\SpecialCharTok{/}\NormalTok{(c}\SpecialCharTok{*}\NormalTok{(c}\SpecialCharTok{+}\NormalTok{d)))      }\CommentTok{\# Natural log of IPR variance}
+\NormalTok{  se }\OtherTok{=} \FunctionTok{sqrt}\NormalTok{(var.ln.ipr)                           }\CommentTok{\# Standard error}
+  
+\NormalTok{  ln.lower }\OtherTok{=} \FunctionTok{log}\NormalTok{(ipr.hat) }\SpecialCharTok{{-}}\NormalTok{ z }\SpecialCharTok{*} \FunctionTok{sqrt}\NormalTok{(var.ln.ipr)  }\CommentTok{\# Upper/Lower Log Bounds}
+\NormalTok{  ln.upper }\OtherTok{=} \FunctionTok{log}\NormalTok{(ipr.hat) }\SpecialCharTok{+}\NormalTok{ z }\SpecialCharTok{*} \FunctionTok{sqrt}\NormalTok{(var.ln.ipr)}
+  
+\NormalTok{  lower }\OtherTok{=} \FunctionTok{exp}\NormalTok{(ln.lower)                           }\CommentTok{\# Upper/Lower Bounds}
+\NormalTok{  upper }\OtherTok{=} \FunctionTok{exp}\NormalTok{(ln.upper)}
+  
+  \FunctionTok{data.frame}\NormalTok{(}
+    \AttributeTok{IPR =}\NormalTok{ ipr.hat,}
+    \StringTok{"Lower Bound"} \OtherTok{=}\NormalTok{ lower,}
+    \StringTok{"Upper Bound"} \OtherTok{=}\NormalTok{ upper,}
+    \StringTok{"Confidence Interval"} \OtherTok{=}\NormalTok{ conf,}
+    \AttributeTok{check.names =}\NormalTok{ F}
+\NormalTok{  )\}}
+\FunctionTok{kable}\NormalTok{(}\FunctionTok{IPR.conf}\NormalTok{(}\DecValTok{110}\NormalTok{, }\DecValTok{1073}\NormalTok{, }\DecValTok{289}\NormalTok{, }\DecValTok{15896}\NormalTok{, .}\DecValTok{95}\NormalTok{), }\AttributeTok{digits =} \DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}rrrr@{}}
+\toprule\noalign{}
+IPR & Lower Bound & Upper Bound & Confidence Interval \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+5.207 & 4.215 & 6.434 & 0.95 \\
+\end{longtable}
+
+The new interval is effectively identical to the interval from Problem
+1.
+
+\subsection{Question 3: BMI and
+Mortality}\label{question-3-bmi-and-mortality}
+
+\paragraph{A)}\label{a-1}
+
+The exposure factor is BMI category.
+
+\paragraph{B)}\label{b-1}
+
+The outcome is all-cause mortality.
+
+\paragraph{C)}\label{c-1}
+
+Incidence density can be computed using this data because the follow-up
+is measured in person-years.
+
+\paragraph{D)}\label{d-1}
+
+Completed table
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.1263}}
+  >{\centering\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2737}}
+  >{\centering\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.1895}}
+  >{\centering\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2526}}
+  >{\centering\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.1579}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+BMI
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Follow up (person-years)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Number of deaths
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Incidence of mortality
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Relative Risk
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Normal & 5995 & 19 & 0.00317 & 1.00 \\
+Underweight & 8479 & 71 & 0.00837 & 2.64 \\
+Overweight & 1562 & 7 & 0.00448 & 1.41 \\
+All & 16036 & 97 & 0.00605 & NA \\
+\end{longtable}
+
+\paragraph{E)}\label{e-1}
+
+The underweight population are at greater risk of mortality than the
+overweight population. The underweight population has an all cause
+mortality rate 2.64 times higher than normal, while the overweight
+population has an all cause mortality rate 1.41 times higher than
+normal.
+
+\subsection{Question 4: Clinical
+Epidemiology}\label{question-4-clinical-epidemiology}
+
+\paragraph{A)}\label{a-2}
+
+Specificity = \(\frac{460}{460+40} = 0.92\)
+
+\paragraph{B)}\label{b-2}
+
+Sensitivity = \(\frac{840}{840+160} = 0.84\)
+
+\paragraph{C)}\label{c-2}
+
+The positive predictive value of this test is:
+\(\frac{840}{840+40} = 0.955\)
+
+\paragraph{D)}\label{d-2}
+
+The negative predictive value of this test is
+\(\frac{460}{460+160} = 0.742\)
+
+\subsection{Question 5}\label{question-5}
+
+\paragraph{A)}\label{a-3}
+
+Because this test is not inflated by a disproportionate number of
+responses in one category, we use the percent agreement formula:
+\(\frac{A+D}{A+B+C+D}\).
+
+Percent agreement here is \$\frac{110+61}{110+30+5+61} = \$
+
+\end{document}

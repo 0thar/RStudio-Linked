@@ -84,5 +84,65 @@ kable(IPR.conf(110, 1073, 289, 15896, .95), digits = 3)
 The new interval is effectively identical to the interval from Problem 1.
 
 
+## Question 3: BMI and Mortality
 
+#### A)
+The exposure factor is BMI category.
+
+#### B)
+The outcome is all-cause mortality.
+
+#### C)
+Incidence density can be computed using this data because the follow-up is measured in person-years.
+
+#### D)
+Completed table
+```{r echo=FALSE}
+bmi <- c("Normal","Underweight","Overweight","All")
+py <- c(5995,8479,1562,16036)
+deaths <- c(19,71,7,97)
+incidence <- c(0.00317,0.00837,0.00448,0.00605)
+rr <- c(1.00,2.64,1.41,NA)
+
+table <- data.frame(bmi, py, deaths, incidence, rr)
+
+kable(
+  table,
+  col.names = c(
+    "BMI",
+    "Follow up (person-years)",
+    "Number of deaths",
+    "Incidence of mortality",
+    "Relative Risk"
+  ),
+  align = "lcccc"
+)
+```
+
+#### E)
+The underweight population are at greater risk of mortality than the overweight population.
+The underweight population has an all cause mortality rate 2.64 times higher than normal, while the overweight population has an all cause mortality rate 1.41 times higher than normal.
+
+
+## Question 4: Clinical Epidemiology
+
+#### A)
+Specificity = $\frac{460}{460+40} = 0.92$
+
+#### B)
+Sensitivity = $\frac{840}{840+160} = 0.84$
+
+#### C)
+The positive predictive value of this test is: $\frac{840}{840+40} = 0.955$
+
+#### D)
+The negative predictive value of this test is $\frac{460}{460+160} = 0.742$
+
+
+## Question 5
+
+#### A)
+Because this test is not inflated by a disproportionate number of responses in one category, we use the percent agreement formula: $\frac{A+D}{A+B+C+D}$.
+
+Percent agreement here is $\frac{110+61}{110+30+5+61} = $
 
