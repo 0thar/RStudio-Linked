@@ -1,0 +1,133 @@
+---
+title: "Zaldastani_Othar_cc5"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, echo=TRUE, results='hide', message=FALSE, warning=FALSE, include = T}
+knitr::opts_chunk$set(fig.pos = "H", message = FALSE, warning = FALSE)
+library(tidyverse)
+library(modeldata)
+data(Sacramento)
+library(ggplot2)
+```
+
+
+
+## Question 1: Visualizing the Relationship
+
+#### A)
+Square Footage vs. Price
+```{r}
+ggplot(data = Sacramento, aes(x = sqft, y = price)) +
+  geom_point() +
+  xlab("Square Footage") +
+  ylab("Price") +
+  ggtitle("Housing Price vs. Square Footage") +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+#### B)
+
+Square Footage vs. Price with line of best fit
+```{r}
+ggplot(data = Sacramento, aes(x = sqft, y = price)) +
+  geom_point() +
+  xlab("Square Footage") +
+  ylab("Price") +
+  ggtitle("Housing Price vs. Square Footage") +
+  theme(plot.title = element_text(hjust = 0.5))+
+  geom_smooth(method = "lm")
+```
+
+#### C)
+I expect $\hat \beta_1$ to be positive because the line of best fit has a positive slope.
+
+
+## Question 2: From Bivariate to Multivariate
+
+#### A)
+
+```{r}
+biv.model = lm(price ~ sqft, data = Sacramento)
+summary(biv.model)
+```
+The coefficient on `sqft` is 138.55.
+
+#### B)
+
+```{r}
+multi.model = lm(price ~ sqft + beds, data = Sacramento)
+summary(multi.model)
+```
+
+The coefficient on `sqft` is now 161.34 and the coefficient on `beds` is -26035.15.
+
+#### C)
+The coefficient on `sqft` increased by over 16% after adding `beds` to the regression.
+
+#### D)
+The coefficient on `sqft` likely changed after adding `beds` as a predictor variable because when holding square footage fixed, more bedrooms would imply smaller bedrooms and less space per person in a household. A 4 bedroom, 1500 square foot house is likely more cramped than a house of the same size with two bedrooms.
+
+
+## Question 3: Interpreting Coefficients and Adding Controls
+
+#### A)
+Adding `baths` to the model.
+```{r}
+A3.model = lm(price ~ sqft + beds + baths, data = Sacramento)
+summary(A3.model)
+```
+
+#### B)
+
+Holding bedrooms and bathrooms constant, 1 square foot size increase raises a house's predicted sale price by $158.17.
+
+#### C)
+
+When holding bedrooms and square footage constant, an an increase in bathroom count of 1 raises its predicted price by $5342.59. However, it is worth noting that when holding `sqft` and `beds` constant, `baths` is not a statistically significant predictor of a house's market value.
+
+#### D)
+Tibble creation
+```{r}
+comparison = tibble(
+  model = c("biv.model",
+            "multi.model",
+            "A3.model"),
+  sqft_coef = c(coef(biv.model)["sqft"],
+                coef(multi.model)["sqft"],
+                coef(A3.model)["sqft"]))
+comparison
+```
+
+#### E)
+
+Adding `baths` did not substantially change the the coefficient on `sqft` compared to the model with only `sqft` and `beds`. This suggests `baths` is not an important confounding variable for the square footage–price relationship.
+
+
+## Question 4: Omitted Variable Bias
+Data Generation
+```{r}
+set.seed(325)
+n <- 500
+
+# True DGP: y = 10 + 3*x1 + 5*x2 + error
+# x1 and x2 are correlated [cor(x1, x2) = 0.6]
+x2 <- rnorm(n)
+x1 <- 0.6 * x2 + rnorm(n)
+y <- 10 + 3 * x1 + 5 * x2 + rnorm(n)
+
+sim_data <- tibble(y, x1, x2)
+```
+
+
+#### A)
+The true value of $\beta_1$ is 3.\
+
+#### B)
+
+
+
+
+
