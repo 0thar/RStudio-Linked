@@ -1,8 +1,18 @@
 ---
-title: "Zaldastani_Othar_cc5"
+title: "EC325 Concept Check 5"
+author: "Othar Zaldastani II"
+date: "March 8, 2026"
 output:
   pdf_document: default
-  html_document: default
+  html_document:
+    df_print: paged
+  word_document: default
+header-includes:
+- \usepackage{xcolor}
+- \makeatletter
+- \makeatother
+- \usepackage{float}
+- \renewcommand{\CommentTok}[1]{\textcolor[rgb]{0.60,0.20,0.20}{#1}}
 ---
 
 ```{r setup, echo=TRUE, results='hide', message=FALSE, warning=FALSE, include = T}
@@ -19,7 +29,7 @@ library(ggplot2)
 
 #### A)
 Square Footage vs. Price
-```{r}
+```{r, out.width="60%"}
 ggplot(data = Sacramento, aes(x = sqft, y = price)) +
   geom_point() +
   xlab("Square Footage") +
@@ -28,10 +38,11 @@ ggplot(data = Sacramento, aes(x = sqft, y = price)) +
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
+\pagebreak
 #### B)
 
 Square Footage vs. Price with line of best fit
-```{r}
+```{r, out.width="60%"}
 ggplot(data = Sacramento, aes(x = sqft, y = price)) +
   geom_point() +
   xlab("Square Footage") +
@@ -48,7 +59,7 @@ I expect $\hat \beta_1$ to be positive because the line of best fit has a positi
 ## Question 2: From Bivariate to Multivariate
 
 #### A)
-
+Bivariate model
 ```{r}
 biv.model = lm(price ~ sqft, data = Sacramento)
 summary(biv.model)
@@ -56,7 +67,7 @@ summary(biv.model)
 The coefficient on `sqft` is 138.55.
 
 #### B)
-
+Multivariate model
 ```{r}
 multi.model = lm(price ~ sqft + beds, data = Sacramento)
 summary(multi.model)
@@ -105,7 +116,7 @@ comparison
 
 Adding `baths` did not substantially change the the coefficient on `sqft` compared to the model with only `sqft` and `beds`. This suggests `baths` is not an important confounding variable for the square footage–price relationship.
 
-
+\pagebreak
 ## Question 4: Omitted Variable Bias
 Data Generation
 ```{r}
@@ -123,11 +134,36 @@ sim_data <- tibble(y, x1, x2)
 
 
 #### A)
-The true value of $\beta_1$ is 3.\
+The true value of $\beta_1$ is 3.
 
 #### B)
+Bivariate model
+```{r}
+B5.model = lm(y ~ x1, data = sim_data)
+summary(B5.model)
+```
+
+The bivariate regression coefficient is $\hat\beta_1 =4.77$. This means it is biased because the true value of $\beta_1 = 3$.
+Since $4.77 > 3$, that means the model is biased upward.
+
+#### C)
+Multivariate model
+```{r}
+C5.model = lm(y ~ x1 + x2, data = sim_data)
+summary(C5.model)
+```
+
+The value of $\hat\beta_1$ for the multivariate model is 2.90. While it is still slightly biased (this time downward), it is much closer to the true value.
+
+#### D)
+Bias estimation
+```{r}
+D5.model = lm(x2 ~ x1, data = sim_data)
+summary(D5.model)
+```
+
+The coefficient for `x1`, $\tilde\delta_1$ is 0.371. Using the OVB formula, $\text{Bias} (\hat\beta_1) = \beta_2\tilde\delta_1$. We know $\beta_2 = 5$, so bias is then equal to $5\cdot 0.371 = 1.86$. The predicted bias is positive. Omitted variable bias has upward bias on the coefficient.
 
 
-
-
-
+#### E)
+The true bias is $\tilde\beta_1 - \hat\beta_1 = 4.777 - 3 = 1.77$. This value is very close to the predicted bias, proving the efficacy of the OVB formula for estimating direction and magnitude of the bias.
