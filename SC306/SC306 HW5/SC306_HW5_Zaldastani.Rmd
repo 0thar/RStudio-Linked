@@ -1,0 +1,83 @@
+---
+title: "SC306 Homework 5"
+author: "Othar Zaldastani II"
+date: "March 17, 2026"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+  word_document: default
+header-includes:
+- \usepackage{xcolor}
+- \makeatletter
+- \makeatother
+- \usepackage{float}
+- \renewcommand{\CommentTok}[1]{\textcolor[rgb]{0.60,0.20,0.20}{#1}}
+---
+
+```{r setup, echo=TRUE, results='hide', message=FALSE, warning=FALSE, include = F}
+knitr::opts_chunk$set(
+  echo = FALSE,                 # don't show code
+  warning = FALSE,              # don't show warnings
+  message = FALSE,              # don't show messages (less serious warnings)
+  cache = FALSE,                # set to TRUE to save results from last compilation
+  fig.align = "center",         # center figures
+  attr.source = '.numberLines'  # add line numbers to code
+)
+library(tidyverse)
+library(dplyr)
+library(knitr)
+library(epitools)
+
+set.seed(24)
+
+```
+
+
+# Question 1
+
+#### A) 
+$AR \ \% = \frac{R_e - R_u}{R_e} \times 100$
+
+
+```{r}
+# Question 1
+# Part A
+Re = (110)/(110+289) # Risk among exposed
+
+Ru = (1073)/(1073+15896) # Risk among unexposed
+
+AR = (Re - Ru)/(Re) * 100 # Attributable risk
+
+round(AR, 1)
+```
+
+The attributable risk percent of low birth weight from Cocaine use is 77.1%.
+
+#### B)
+This means approximately 77% of the low birth weight risk for infants born to mothers who used Cocaine while pregnant is attributable to their use of Cocaine.
+
+#### C) 
+$PAR \ \% = \frac{P_e(R_e - R_u)}{P_e R_e + (1-P_e)R_u} \times 100$
+```{r}
+# Part C
+Pe = 0.02
+PAR = (Pe * (Re - Ru)) / (Pe * Re + (1-Pe) * Ru) * 100
+round(PAR, 2)
+```
+The population attributable risk percent of low birth weight from Cocaine use is 6.3%.
+
+#### D) 
+Approximately 6.3% of the low birth weight risk for all infants born in California is attributable to the use of Cocaine while pregnant.
+
+
+
+
+\pagebreak
+# Code Appendix
+```{r ref.label = knitr::all_labels(), echo = TRUE, eval = FALSE}
+```
+
+\vfill
+
+Attributions: I have used some template/styling code from GitHub user alexpghayes.

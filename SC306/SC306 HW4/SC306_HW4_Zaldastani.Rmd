@@ -60,7 +60,8 @@ A relative risk of 4.38 means mothers who used Cocaine during pregnancy had 4.38
 Birth weight table
 
 ```{r}
-riskratio(bw, rev = "b")
+
+(riskratio(bw, rev = "b"))
 ```
 
 The risk ratio is 5.21 with a 95% CI of $[4.21 : 6.43]$. The interpretation for the 95% confidence interval is that given our analysis of the data, we are 95% confident that the true risk ratio is between 4.21 and 6.43. Cocaine use is significantly associated with low birth weight, as shown by the value lower bound of our confidence interval considerably exceeding 1.
