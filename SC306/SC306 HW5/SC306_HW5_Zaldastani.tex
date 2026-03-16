@@ -1,0 +1,311 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{xcolor}
+\makeatletter
+\makeatother
+\usepackage{float}
+\renewcommand{\CommentTok}[1]{\textcolor[rgb]{0.60,0.20,0.20}{#1}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={SC306 Homework 5},
+  pdfauthor={Othar Zaldastani II},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{SC306 Homework 5}
+\author{Othar Zaldastani II}
+\date{March 17, 2026}
+
+\begin{document}
+\maketitle
+
+\section{Part 1: AR and PAR}\label{part-1-ar-and-par}
+
+\paragraph{A)}\label{a}
+
+\[AR \ \% = \frac{R_e - R_u}{R_e} \times 100\]
+
+\begin{verbatim}
+## [1] 77.1
+\end{verbatim}
+
+The attributable risk percent of low birth weight from Cocaine use is
+77.1\%.
+
+\paragraph{B)}\label{b}
+
+This means approximately 77\% of the low birth weight risk for infants
+born to mothers who used Cocaine while pregnant is attributable to their
+use of Cocaine.
+
+\paragraph{C)}\label{c}
+
+\[PAR \ \% = \frac{P_e(R_e - R_u)}{P_e R_e + (1-P_e)R_u} \times 100\]
+
+\begin{verbatim}
+## [1] 6.3
+\end{verbatim}
+
+The population attributable risk percent of low birth weight from
+Cocaine use is 6.3\%.
+
+\paragraph{D)}\label{d}
+
+Approximately 6.3\% of the low birth weight risk for all infants born in
+California is attributable to the use of Cocaine while pregnant.
+
+\section{Part 2: Study Designs}\label{part-2-study-designs}
+
+\subsection{Abstract 1}\label{abstract-1}
+
+\subsection{Abstract 2}\label{abstract-2}
+
+\subsection{Abstract 3}\label{abstract-3}
+
+\pagebreak
+
+\section{Part 3: A Case-Control
+Study}\label{part-3-a-case-control-study}
+
+\paragraph{A)}\label{a-1}
+
+Since cervical cancer is relatively uncommon, it makes sense to do a
+case-control study compared to other options such as an RCT or cohort
+study. An RCT would be challenging and extremely unethical, while a
+cohort study would require an immense number of participants and time in
+order to have a sufficient number of female participants develop
+cervical cancer. A case-control study is best because the disease takes
+a long time to incubate, and the retrospective information needed to
+categorize participants is not very granular (number of sexual partners,
+sex worker visitation, etc.) so there is a lower likelihood of receiving
+false information.
+
+\paragraph{B)}\label{b-1}
+
+Some potential problems include recall bias, reporting bias, selection
+bias, and confounding issues. Cases and their husbands may put more
+effort into recalling past information compared to controls. Contact
+with sex workers is stigmatized and some husbands may lie about their
+history. The selection of individuals from hospitals also poses a
+potential problem because hospitalized individuals are not a
+representative segment of the population. Also, some potential
+confounding variables include exposure to carcinogens such as cigarette
+use, socioeconomic status, occupation or occupational hazard and
+exposure, and the wives' number of sexual partners prior to (or during)
+marriage.
+
+\paragraph{C)}\label{c-1}
+
+2x2 table of cervical cancer data
+
+\begin{longtable}[]{@{}lrr@{}}
+\toprule\noalign{}
+& cancer & No cancer \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+CSW & 179 & 518 \\
+No CSW & 42 & 267 \\
+\end{longtable}
+
+\paragraph{D)}\label{d-1}
+
+Women with husbands who had previously visited sex workers had higher
+odds of cervical cancer compared to women with husbands who had reported
+never having visited a sex worker.
+
+\paragraph{E)}\label{e}
+
+The prevalence of cervical cancer among study participants is
+
+\paragraph{F)}\label{f}
+
+No, because in a case-cohort study, participants are not randomly
+selected but, so the study population has a significantly higher rate of
+the condition (here, cervical cancer) than the general population.
+Investigators intentionally set the number of cases and controls in the
+study.
+
+\paragraph{G)}\label{g}
+
+The 95\% confidence interval for the odds ratio is \([1.53 : 3.2]\)
+centered at 2.19.
+
+\begin{verbatim}
+## estimate    lower    upper 
+##     2.19     1.53     3.20
+\end{verbatim}
+
+\paragraph{H)}\label{h}
+
+The odds ratio of 2.19 with a 95\% confidence interval of
+\([1.53 : 3.2]\) means that the odds of developing invasive cervical
+cancer among women with husbands who had previously visited sex workers
+is estimated to be between 1.5 and 3.2 times the odds of the general
+population with husbands who did not visit sex workers.
+
+\pagebreak
+
+\section{Code Appendix}\label{code-appendix}
+
+\begin{Shaded}
+\begin{Highlighting}[numbers=left,,]
+\NormalTok{knitr}\SpecialCharTok{::}\NormalTok{opts\_chunk}\SpecialCharTok{$}\FunctionTok{set}\NormalTok{(          }\CommentTok{\# setup chunk}
+  \AttributeTok{echo =} \ConstantTok{FALSE}\NormalTok{,                 }
+  \AttributeTok{warning =} \ConstantTok{FALSE}\NormalTok{,              }
+  \AttributeTok{message =} \ConstantTok{FALSE}\NormalTok{,              }
+  \AttributeTok{cache =} \ConstantTok{FALSE}\NormalTok{,                }
+  \AttributeTok{fig.align =} \StringTok{"center"}\NormalTok{,         }
+  \AttributeTok{attr.source =} \StringTok{\textquotesingle{}.numberLines\textquotesingle{}}\NormalTok{,}
+  \AttributeTok{cache =}\NormalTok{ T)}
+
+\FunctionTok{library}\NormalTok{(tidyverse)              }\CommentTok{\# loading packages}
+\FunctionTok{library}\NormalTok{(dplyr)}
+\FunctionTok{library}\NormalTok{(knitr)}
+\FunctionTok{library}\NormalTok{(epitools)}
+
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{24}\NormalTok{)                    }\CommentTok{\# seed for reproducibility}
+
+\NormalTok{kable2 }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x, ...) \{    }\CommentTok{\# for debugging table creation}
+\NormalTok{  kableExtra}\SpecialCharTok{::}\FunctionTok{kable\_styling}\NormalTok{(}
+\NormalTok{    knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(x, ...))\}}
+\CommentTok{\# Part 1}
+\CommentTok{\# Question A}
+\NormalTok{Re }\OtherTok{=}\NormalTok{ (}\DecValTok{110}\NormalTok{)}\SpecialCharTok{/}\NormalTok{(}\DecValTok{110}\SpecialCharTok{+}\DecValTok{289}\NormalTok{)            }\CommentTok{\# Risk among exposed}
+\NormalTok{Ru }\OtherTok{=}\NormalTok{ (}\DecValTok{1073}\NormalTok{)}\SpecialCharTok{/}\NormalTok{(}\DecValTok{1073}\SpecialCharTok{+}\DecValTok{15896}\NormalTok{)        }\CommentTok{\# Risk among unexposed}
+\NormalTok{AR }\OtherTok{=}\NormalTok{ (Re }\SpecialCharTok{{-}}\NormalTok{ Ru)}\SpecialCharTok{/}\NormalTok{(Re) }\SpecialCharTok{*} \DecValTok{100}       \CommentTok{\# Attributable risk}
+\FunctionTok{round}\NormalTok{(AR, }\DecValTok{1}\NormalTok{)}
+
+\CommentTok{\# Question C}
+\NormalTok{Pe }\OtherTok{=} \FloatTok{0.02}                       \CommentTok{\# Exposure prevalence}
+\NormalTok{PAR }\OtherTok{=}\NormalTok{ (Pe }\SpecialCharTok{*}\NormalTok{ (Re }\SpecialCharTok{{-}}\NormalTok{ Ru)) }\SpecialCharTok{/}\NormalTok{ (Pe }\SpecialCharTok{*}\NormalTok{ Re }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{Pe) }\SpecialCharTok{*}\NormalTok{ Ru) }\SpecialCharTok{*} \DecValTok{100}
+\FunctionTok{round}\NormalTok{(PAR, }\DecValTok{2}\NormalTok{)}
+
+\CommentTok{\# Part 3}
+\CommentTok{\# Question C}
+\NormalTok{table.cancer }\OtherTok{=}                  \CommentTok{\# Creation of 2x2 table}
+  \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{179}\NormalTok{, }\DecValTok{518}\NormalTok{, }\DecValTok{42}\NormalTok{, }\DecValTok{267}\NormalTok{),}\AttributeTok{nrow=}\DecValTok{2}\NormalTok{, }\AttributeTok{byrow =} \ConstantTok{TRUE}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(table.cancer) }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}cancer\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}No cancer\textquotesingle{}}\NormalTok{)}
+\FunctionTok{rownames}\NormalTok{(table.cancer) }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}CSW\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}No CSW\textquotesingle{}}\NormalTok{)}
+\FunctionTok{kable}\NormalTok{(table.cancer)             }\CommentTok{\# Printing 2x2 table}
+
+\CommentTok{\# Question G}
+\NormalTok{or }\OtherTok{=} \FunctionTok{oddsratio}\NormalTok{(table.cancer, }\AttributeTok{rev =} \StringTok{"b"}\NormalTok{)}
+\FunctionTok{round}\NormalTok{(or}\SpecialCharTok{$}\NormalTok{measure[}\StringTok{"CSW"}\NormalTok{, ], }\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\vfill
+
+Attributions: I have used some template/styling code from GitHub user
+alexpghayes.
+
+\end{document}

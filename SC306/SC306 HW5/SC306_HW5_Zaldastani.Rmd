@@ -3,7 +3,9 @@ title: "SC306 Homework 5"
 author: "Othar Zaldastani II"
 date: "March 17, 2026"
 output:
-  pdf_document: default
+  pdf_document:
+    latex_engine: pdflatex
+    keep_tex: true
   html_document:
     df_print: paged
   word_document: default
@@ -16,65 +18,135 @@ header-includes:
 ---
 
 ```{r setup, echo=TRUE, results='hide', message=FALSE, warning=FALSE, include = F}
-knitr::opts_chunk$set(
-  echo = FALSE,                 # don't show code
-  warning = FALSE,              # don't show warnings
-  message = FALSE,              # don't show messages (less serious warnings)
-  cache = FALSE,                # set to TRUE to save results from last compilation
-  fig.align = "center",         # center figures
-  attr.source = '.numberLines'  # add line numbers to code
-)
-library(tidyverse)
+knitr::opts_chunk$set(          # setup chunk
+  echo = FALSE,                 
+  warning = FALSE,              
+  message = FALSE,              
+  cache = FALSE,                
+  fig.align = "center",         
+  attr.source = '.numberLines',
+  cache = T)
+
+library(tidyverse)              # loading packages
 library(dplyr)
 library(knitr)
 library(epitools)
 
-set.seed(24)
+set.seed(24)                    # seed for reproducibility
 
+kable2 <- function(x, ...) {    # for debugging table creation
+  kableExtra::kable_styling(
+    knitr::kable(x, ...))}
 ```
 
 
-# Question 1
 
-#### A) 
-$AR \ \% = \frac{R_e - R_u}{R_e} \times 100$
 
+# Part 1: AR and PAR
+
+#### A)
+
+$$AR \ \% = \frac{R_e - R_u}{R_e} \times 100$$
 
 ```{r}
-# Question 1
-# Part A
-Re = (110)/(110+289) # Risk among exposed
-
-Ru = (1073)/(1073+15896) # Risk among unexposed
-
-AR = (Re - Ru)/(Re) * 100 # Attributable risk
-
+# Part 1
+# Question A
+Re = (110)/(110+289)            # Risk among exposed
+Ru = (1073)/(1073+15896)        # Risk among unexposed
+AR = (Re - Ru)/(Re) * 100       # Attributable risk
 round(AR, 1)
+
 ```
 
 The attributable risk percent of low birth weight from Cocaine use is 77.1%.
 
 #### B)
+
 This means approximately 77% of the low birth weight risk for infants born to mothers who used Cocaine while pregnant is attributable to their use of Cocaine.
 
-#### C) 
-$PAR \ \% = \frac{P_e(R_e - R_u)}{P_e R_e + (1-P_e)R_u} \times 100$
+#### C)
+
+$$PAR \ \% = \frac{P_e(R_e - R_u)}{P_e R_e + (1-P_e)R_u} \times 100$$
+
 ```{r}
-# Part C
-Pe = 0.02
+# Question C
+Pe = 0.02                       # Exposure prevalence
 PAR = (Pe * (Re - Ru)) / (Pe * Re + (1-Pe) * Ru) * 100
 round(PAR, 2)
+
 ```
+
 The population attributable risk percent of low birth weight from Cocaine use is 6.3%.
 
-#### D) 
+#### D)
+
 Approximately 6.3% of the low birth weight risk for all infants born in California is attributable to the use of Cocaine while pregnant.
+
+# Part 2: Study Designs
+
+## Abstract 1
+
+
+## Abstract 2
+
+## Abstract 3
+
+
+\pagebreak
+# Part 3: A Case-Control Study
+
+#### A)
+Since cervical cancer is relatively uncommon, it makes sense to do a case-control study compared to other options such as an RCT or cohort study. An RCT would be challenging and extremely unethical, while a cohort study would require an immense number of participants and time in order to have a sufficient number of female participants develop cervical cancer. A case-control study is best because the disease takes a long time to incubate, and the retrospective information needed to categorize participants is not very granular (number of sexual partners, sex worker visitation, etc.) so there is a lower likelihood of receiving false information. 
+
+#### B)
+Some potential problems include recall bias, reporting bias, selection bias, and confounding issues. Cases and their husbands may put more effort into recalling past information compared to controls. Contact with sex workers is stigmatized and some husbands may lie about their history. The selection of individuals from hospitals also poses a potential problem because hospitalized individuals are not a representative segment of the population. Also, some potential confounding variables include exposure to carcinogens such as cigarette use, socioeconomic status, occupation or occupational hazard and exposure, and the wives' number of sexual partners prior to (or during) marriage.
+
+
+#### C)
+2x2 table of cervical cancer data
+```{r}
+# Part 3
+# Question C
+table.cancer =                  # Creation of 2x2 table
+  matrix(c(179, 518, 42, 267),nrow=2, byrow = TRUE)
+colnames(table.cancer) = c('cancer', 'No cancer')
+rownames(table.cancer) = c('CSW', 'No CSW')
+kable(table.cancer)             # Printing 2x2 table
+
+```
+
+
+#### D)
+Women with husbands who had previously visited sex workers had higher odds of cervical cancer compared to women with husbands who had reported never having visited a sex worker.
+
+#### E)
+The prevalence of cervical cancer among study participants is 
+
+#### F)
+No, because in a case-cohort study, participants are not randomly selected but, so the study population has a significantly higher rate of the condition (here, cervical cancer) than the general population. Investigators intentionally set the number of cases and controls in the study.
+
+
+#### G)
+The 95% confidence interval for the odds ratio is $[1.53 : 3.2]$ centered at 2.19.
+
+```{r}
+# Question G
+or = oddsratio(table.cancer, rev = "b")
+round(or$measure["CSW", ], 2)
+
+```
+
+#### H)
+The odds ratio of 2.19 with a 95% confidence interval of $[1.53 : 3.2]$ means that the odds of developing invasive cervical cancer among women with husbands who had previously visited sex workers is estimated to be between 1.5 and 3.2 times the odds of the general population with husbands who did not visit sex workers. 
+
+
 
 
 
 
 \pagebreak
 # Code Appendix
+
 ```{r ref.label = knitr::all_labels(), echo = TRUE, eval = FALSE}
 ```
 
