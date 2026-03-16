@@ -1,12 +1,10 @@
 % Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
+%
 \documentclass[
 ]{article}
-\usepackage{xcolor}
-\usepackage[margin=1in]{geometry}
 \usepackage{amsmath,amssymb}
-\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
 \usepackage{iftex}
 \ifPDFTeX
   \usepackage[T1]{fontenc}
@@ -37,6 +35,8 @@
 }{% if KOMA class
   \KOMAoptions{parskip=half}}
 \makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
 \usepackage{color}
 \usepackage{fancyvrb}
 \newcommand{\VerbBar}{|}
@@ -105,6 +105,7 @@
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
 \usepackage{xcolor}
 \makeatletter
 \makeatother
@@ -161,13 +162,72 @@ Cocaine use is 6.3\%.
 Approximately 6.3\% of the low birth weight risk for all infants born in
 California is attributable to the use of Cocaine while pregnant.
 
+\pagebreak
+
 \section{Part 2: Study Designs}\label{part-2-study-designs}
 
 \subsection{Abstract 1}\label{abstract-1}
 
+The researchers used a randomized control trial (RCT) with a six-month
+follow up.
+
+Effects of reduction in screen use/exposure via the use of a modified
+classroom curriculum.
+
+Childhood obesity related measurements such as BMI and bodily
+dimensions/ratios.
+
+The primary measures used to quantify disease were obesity-related
+measures such as BMI and body measurements. Since a condition like
+obesity follows more of a sliding scale of severity, changes in bodily
+characteristics were used as opposed to number of participants
+over/under a threshold.
+
+The measures used to quantify exposure vs.~outcome relationship was
+difference in means (difference in differences) with 95\% confidence
+intervals.
+
 \subsection{Abstract 2}\label{abstract-2}
 
+The researchers used a cohort study with continuous, indefinite follow
+ups to conduct this experiment. The cohort was followed from the birth
+period of 1915-1929 to 1995 and mortality causes were assessed.
+
+The exposure investigated was fetal growth rate (controlling for size at
+birth).
+
+The disease investigated was mortality from Ischaemic Heart Disease (and
+other causes) during the lives of the participants.
+
+The measures used to quantify disease were mortality rates from
+Ischaemic Heart Disease and other Cardiovascular diseases.
+
+The measure used to quantify the relationship between exposure and
+outcome was incidence rate ratios relative to birth weight with 95\%
+confidence intervals. An additional set of results was published
+controlling for socioeconomic factors at birth and adulthood.
+
 \subsection{Abstract 3}\label{abstract-3}
+
+The researchers used a case-control study. Women with premenopausal
+breast cancer were compared to demographically-matched controls. Prior
+history of electric blanket use was assessed retrospectively.
+
+The exposure investigated was electric blanket use (as a proxy for
+increased background exposure to 60 hz electromagnetic fields). Data on
+blanket use included time, duration, and frequency of use over the
+previous decade.
+
+The disease investigated was premenopausal breast cancer.
+
+Since this is a case-control study, disease frequency is not a
+meaningful statistic. Numbers of cases and controls were chosen at the
+start of the study.
+
+The measure used to quantify relationship between electric blanket use
+and premenopausal breast cancer are odds ratios with 95\% confidence
+intervals. The odds ratios were adjusted for age, education, and other
+possible risk factors/confounding variables.
 
 \pagebreak
 
@@ -224,7 +284,12 @@ never having visited a sex worker.
 
 \paragraph{E)}\label{e}
 
-The prevalence of cervical cancer among study participants is
+The prevalence of cervical cancer among study participants is 22\%.
+\[\frac{\text{\# of Cases in Study}} {\text{\# of Participants in Study}} = \frac{179+42}{179 + 518 + 42 + 267} = 0.220\]
+
+\begin{verbatim}
+## [1] 0.22
+\end{verbatim}
 
 \paragraph{F)}\label{f}
 
@@ -297,6 +362,8 @@ population with husbands who did not visit sex workers.
 \FunctionTok{rownames}\NormalTok{(table.cancer) }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}CSW\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}No CSW\textquotesingle{}}\NormalTok{)}
 \FunctionTok{kable}\NormalTok{(table.cancer)             }\CommentTok{\# Printing 2x2 table}
 
+\CommentTok{\# Question E}
+\FunctionTok{round}\NormalTok{(((}\DecValTok{179}\SpecialCharTok{+}\DecValTok{42}\NormalTok{)}\SpecialCharTok{/}\NormalTok{(}\DecValTok{179} \SpecialCharTok{+} \DecValTok{518} \SpecialCharTok{+} \DecValTok{42} \SpecialCharTok{+} \DecValTok{267}\NormalTok{)), }\DecValTok{3}\NormalTok{)}
 \CommentTok{\# Question G}
 \NormalTok{or }\OtherTok{=} \FunctionTok{oddsratio}\NormalTok{(table.cancer, }\AttributeTok{rev =} \StringTok{"b"}\NormalTok{)}
 \FunctionTok{round}\NormalTok{(or}\SpecialCharTok{$}\NormalTok{measure[}\StringTok{"CSW"}\NormalTok{, ], }\DecValTok{2}\NormalTok{)}

@@ -82,14 +82,49 @@ The population attributable risk percent of low birth weight from Cocaine use is
 
 Approximately 6.3% of the low birth weight risk for all infants born in California is attributable to the use of Cocaine while pregnant.
 
+\pagebreak
 # Part 2: Study Designs
 
 ## Abstract 1
+The researchers used a randomized control trial (RCT) with a six-month follow up.
+
+Effects of reduction in screen use/exposure via the use of a modified classroom curriculum.
+
+Childhood obesity related measurements such as BMI and bodily dimensions/ratios.
+
+The primary measures used to quantify disease were obesity-related measures such as BMI and body measurements. Since a condition like obesity follows more of a sliding scale of severity, changes in bodily characteristics were used as opposed to number of participants over/under a threshold.
+
+The measures used to quantify exposure vs. outcome relationship was difference in means (difference in differences) with 95% confidence intervals.
+
+
+
 
 
 ## Abstract 2
+The researchers used a cohort study with continuous, indefinite follow ups to conduct this experiment.
+The cohort was followed from the birth period of 1915-1929 to 1995 and mortality causes were assessed.
+
+The exposure investigated was fetal growth rate (controlling for size at birth).
+
+The disease investigated was mortality from Ischaemic Heart Disease (and other causes) during the lives of the participants.
+
+The measures used to quantify disease were mortality rates from Ischaemic Heart Disease and other Cardiovascular diseases.
+
+The measure used to quantify the relationship between exposure and outcome was incidence rate ratios relative to birth weight with 95% confidence intervals.
+An additional set of results was published controlling for socioeconomic factors at birth and adulthood. 
+
 
 ## Abstract 3
+The researchers used a case-control study. Women with premenopausal breast cancer were compared to demographically-matched controls. Prior history of electric blanket use was assessed retrospectively.
+
+The exposure investigated was electric blanket use (as a proxy for increased background exposure to 60 hz electromagnetic fields).
+Data on blanket use included time, duration, and frequency of use over the previous decade.
+
+The disease investigated was premenopausal breast cancer.
+
+Since this is a case-control study, disease frequency is not a meaningful statistic. Numbers of cases and controls were chosen at the start of the study.
+
+The measure used to quantify relationship between electric blanket use and premenopausal breast cancer are odds ratios with 95% confidence intervals. The odds ratios were adjusted for age, education, and other possible risk factors/confounding variables.
 
 
 \pagebreak
@@ -120,7 +155,12 @@ kable(table.cancer)             # Printing 2x2 table
 Women with husbands who had previously visited sex workers had higher odds of cervical cancer compared to women with husbands who had reported never having visited a sex worker.
 
 #### E)
-The prevalence of cervical cancer among study participants is 
+The prevalence of cervical cancer among study participants is 22%.
+$$\frac{\text{\# of Cases in Study}} {\text{\# of Participants in Study}} = \frac{179+42}{179 + 518 + 42 + 267} = 0.220$$
+```{r}
+# Question E
+round(((179+42)/(179 + 518 + 42 + 267)), 3)
+```
 
 #### F)
 No, because in a case-cohort study, participants are not randomly selected but, so the study population has a significantly higher rate of the condition (here, cervical cancer) than the general population. Investigators intentionally set the number of cases and controls in the study.
